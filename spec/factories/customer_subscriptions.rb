@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :customer_subscription do
-    customer { nil }
-    subscription { nil }
-    status { "MyString" }
+    association :customer
+    association :subscription
+    status { 1 }
   end
 end
