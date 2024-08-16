@@ -43,7 +43,7 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
     end
 
     describe "sad paths" do
-      it "returns correct error if customer_id is missing" do
+      it "returns error if customer_id is missing" do
         params = { subscription_id: @subscription_1.id }
 
         headers = {"CONTENT_TYPE" => "application/json"}
@@ -62,7 +62,7 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
         expect(response_body[:errors].first[:message]).to eq("Validation failed: Customer must exist, Customer can't be blank")
       end
 
-      it "returns correct error if subscription_id is missing" do
+      it "returns error if subscription_id is missing" do
         params = { customer_id: @customer_1.id}
 
         headers = {"CONTENT_TYPE" => "application/json"}
@@ -81,7 +81,7 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
         expect(response_body[:errors].first[:message]).to eq("Validation failed: Subscription must exist, Subscription can't be blank")
       end
 
-      it "returns correct error if customer_id is not valid" do
+      it "returns error if customer_id is not valid" do
         params = { customer_id: 999, subscription_id: @subscription_1.id }
 
         headers = {"CONTENT_TYPE" => "application/json"}
@@ -100,7 +100,7 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
         expect(response_body[:errors].first[:message]).to eq("Validation failed: Customer must exist")
       end
 
-      it "returns correct error if subscription_id is not valid" do
+      it "returns error if subscription_id is not valid" do
         params = { customer_id: @customer_1.id, subscription_id: 999 }
 
         headers = {"CONTENT_TYPE" => "application/json"}
@@ -121,7 +121,7 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
     end
   end
 
-  describe "PATCH /api/v1/customer_subscriptions/:id" do
+  describe "PATCH /api/v1/customer_subscriptions/:customer_subscription_id" do
     it "updates the status of a customer_subscription record with the status passed in the body of the request,
     responds with the updated customer_subscription" do
       customer_subscription = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_1)
@@ -159,7 +159,7 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
     end
 
     describe "sad paths" do
-      it "returns correct error if status is missing" do
+      it "returns error if status is missing" do
         customer_subscription = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_1)
 
         status_params = {}
@@ -180,7 +180,7 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
         expect(response_body[:errors].first[:message]).to eq("Validation failed: Status can't be blank")
       end
 
-      it "returns correct error if invalid status is given" do
+      it "returns error if invalid status is given" do
         customer_subscription = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_1)
 
         status_params = { status: "not a status" }
@@ -201,7 +201,7 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
         expect(response_body[:errors].first[:message]).to eq("'not a status' is not a valid status")
       end
 
-      it "returns correct error if invalid customer subscription is given in URL" do
+      it "returns error if invalid customer subscription is given in URL" do
         customer_subscription = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_1)
 
         status_params = { status: "canceled" }
@@ -221,6 +221,24 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
         expect(response_body[:errors].first[:status]).to eq(404)
         expect(response_body[:errors].first[:message]).to eq("Couldn't find CustomerSubscription with 'id'=999991")
       end
+    end
+  end
+
+  describe "GET /api/v1/customer_subscriptions/:customer_id" do
+    it "returns all customer_subscriptions for a given customer" do
+      customer1_subscription1 = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_1)
+      customer1_subscription2 = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_2)
+      customer1_subscription3 = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_3)
+      customer1_subscription4 = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_4)
+
+      get "/api/v1/customer_subscriptions/#{@customer_1.id}"
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      subscriptions = JSON.parse(response.body, symbolize_names: true)
+
+      expect(subscriptions.count).to eq(4)
     end
   end
 end
