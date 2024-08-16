@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_params_response
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+  rescue_from ArgumentError, with: :render_invalid_params_response 
 
   private
 
