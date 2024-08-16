@@ -128,7 +128,7 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
       
       expect(customer_subscription.status).to eq("active")
 
-      status_params = { status: "cancelled" }
+      status_params = { status: "canceled" }
 
       headers = {"CONTENT_TYPE" => "application/json"}
 
@@ -137,12 +137,25 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
+      response_body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response_body).to have_key(:data)
+      expect(response_body[:data]).to have_key(:id)
+      expect(response_body[:data][:id]).to be_a(String)
+      expect(response_body[:data][:type]).to eq("customer_subscription")
+      expect(response_body[:data][:attributes][:status]).to eq("canceled")
+      expect(response_body[:data][:attributes][:title]).to eq(@subscription_1.title)
+      expect(response_body[:data][:attributes][:price]).to eq(@subscription_1.price)
+      expect(response_body[:data][:attributes][:frequency]).to eq(@subscription_1.frequency)
+      expect(response_body[:data][:relationships][:customer][:data][:id]).to eq(@customer_1.id.to_s)
+      expect(response_body[:data][:relationships][:subscription][:data][:id]).to eq(@subscription_1.id.to_s)
+
       updated_customer_subscription = CustomerSubscription.find(customer_subscription.id)
 
       expect(updated_customer_subscription[:id]).to eq(customer_subscription.id)
-      expect(updated_customer_subscription.status).to eq("cancelled")
       expect(updated_customer_subscription.customer).to eq(@customer_1)
       expect(updated_customer_subscription.subscription).to eq(@subscription_1)
+      expect(updated_customer_subscription.status).to eq("canceled")
     end
   end
 end
