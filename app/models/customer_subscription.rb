@@ -6,5 +6,5 @@ class CustomerSubscription < ApplicationRecord
   validates :subscription_id, presence: true
   validates :status, presence: true
 
-  enum status: [:canceled, :active]
+  enum status: [:cancelled, :active]
 end
