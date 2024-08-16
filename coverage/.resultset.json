@@ -244,6 +244,12 @@
           null,
           null,
           null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
           null
         ]
       },
@@ -280,8 +286,94 @@
           1,
           null
         ]
+      },
+      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/app/controllers/api/v1/customer_subscriptions_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/app/models/customer_subscription.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null
+        ]
+      },
+      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/app/serializers/customer_subscription_serializer.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/app/serializers/customer_serializer.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/app/serializers/subscription_serializer.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null
+        ]
       }
     },
-    "timestamp": 1723824718
+    "timestamp": 1723827125
   }
 }
