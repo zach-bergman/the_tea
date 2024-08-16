@@ -157,5 +157,70 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
       expect(updated_customer_subscription.subscription).to eq(@subscription_1)
       expect(updated_customer_subscription.status).to eq("canceled")
     end
+
+    describe "sad paths" do
+      it "returns correct error if status is missing" do
+        customer_subscription = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_1)
+
+        status_params = {}
+
+        headers = {"CONTENT_TYPE" => "application/json"}
+
+        patch "/api/v1/customer_subscriptions/#{customer_subscription.id}", headers: headers, params: JSON.generate(status_params)
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+
+        response_body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response_body).to be_a(Hash)
+        expect(response_body).to have_key(:errors)
+        expect(response_body[:errors]).to be_a(Array)
+        expect(response_body[:errors].first[:status]).to eq(422)
+        expect(response_body[:errors].first[:message]).to eq("Validation failed: Status can't be blank")
+      end
+
+      it "returns correct error if invalid status is given" do
+        customer_subscription = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_1)
+
+        status_params = { status: "not a status" }
+
+        headers = {"CONTENT_TYPE" => "application/json"}
+
+        patch "/api/v1/customer_subscriptions/#{customer_subscription.id}", headers: headers, params: JSON.generate(status_params)
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+
+        response_body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response_body).to be_a(Hash)
+        expect(response_body).to have_key(:errors)
+        expect(response_body[:errors]).to be_a(Array)
+        expect(response_body[:errors].first[:status]).to eq(422)
+        expect(response_body[:errors].first[:message]).to eq("'not a status' is not a valid status")
+      end
+
+      it "returns correct error if invalid customer subscription is given in URL" do
+        customer_subscription = CustomerSubscription.create!(customer: @customer_1, subscription: @subscription_1)
+
+        status_params = { status: "canceled" }
+
+        headers = {"CONTENT_TYPE" => "application/json"}
+
+        patch "/api/v1/customer_subscriptions/999991", headers: headers, params: JSON.generate(status_params)
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(404)
+
+        response_body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response_body).to be_a(Hash)
+        expect(response_body).to have_key(:errors)
+        expect(response_body[:errors]).to be_a(Array)
+        expect(response_body[:errors].first[:status]).to eq(404)
+        expect(response_body[:errors].first[:message]).to eq("Couldn't find CustomerSubscription with 'id'=999991")
+      end
+    end
   end
 end
