@@ -41,5 +41,83 @@ RSpec.describe "Api::V1::CustomerSubscriptions", type: :request do
       expect(created_customer_subscription.subscription).to eq(@subscription_1)
       expect(created_customer_subscription.status).to eq("active")
     end
+
+    describe "sad paths" do
+      it "returns correct error if customer_id is missing" do
+        params = { subscription_id: @subscription_1.id }
+
+        headers = {"CONTENT_TYPE" => "application/json"}
+  
+        post "/api/v1/customer_subscriptions", headers: headers, params: JSON.generate(params)
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+
+        response_body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response_body).to be_a(Hash)
+        expect(response_body).to have_key(:errors)
+        expect(response_body[:errors]).to be_a(Array)
+        expect(response_body[:errors].first[:status]).to eq(422)
+        expect(response_body[:errors].first[:message]).to eq("Validation failed: Customer must exist, Customer can't be blank")
+      end
+
+      it "returns correct error if subscription_id is missing" do
+        params = { customer_id: @customer_1.id}
+
+        headers = {"CONTENT_TYPE" => "application/json"}
+  
+        post "/api/v1/customer_subscriptions", headers: headers, params: JSON.generate(params)
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+
+        response_body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response_body).to be_a(Hash)
+        expect(response_body).to have_key(:errors)
+        expect(response_body[:errors]).to be_a(Array)
+        expect(response_body[:errors].first[:status]).to eq(422)
+        expect(response_body[:errors].first[:message]).to eq("Validation failed: Subscription must exist, Subscription can't be blank")
+      end
+
+      it "returns correct error if customer_id is not valid" do
+        params = { customer_id: 999, subscription_id: @subscription_1.id }
+
+        headers = {"CONTENT_TYPE" => "application/json"}
+  
+        post "/api/v1/customer_subscriptions", headers: headers, params: JSON.generate(params)
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+
+        response_body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response_body).to be_a(Hash)
+        expect(response_body).to have_key(:errors)
+        expect(response_body[:errors]).to be_a(Array)
+        expect(response_body[:errors].first[:status]).to eq(422)
+        expect(response_body[:errors].first[:message]).to eq("Validation failed: Customer must exist")
+      end
+
+      it "returns correct error if subscription_id is not valid" do
+        params = { customer_id: @customer_1.id, subscription_id: 999 }
+
+        headers = {"CONTENT_TYPE" => "application/json"}
+  
+        post "/api/v1/customer_subscriptions", headers: headers, params: JSON.generate(params)
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+
+        response_body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response_body).to be_a(Hash)
+        expect(response_body).to have_key(:errors)
+        expect(response_body[:errors]).to be_a(Array)
+        expect(response_body[:errors].first[:status]).to eq(422)
+        expect(response_body[:errors].first[:message]).to eq("Validation failed: Subscription must exist")
+      end
+    end
   end
 end
