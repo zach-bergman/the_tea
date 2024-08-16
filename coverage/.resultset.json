@@ -201,10 +201,10 @@
         "lines": [
           1,
           1,
-          1,
-          1,
-          1,
-          1,
+          3,
+          3,
+          3,
+          3,
           null,
           null
         ]
@@ -213,10 +213,10 @@
         "lines": [
           1,
           1,
-          1,
-          1,
-          1,
-          1,
+          5,
+          5,
+          5,
+          5,
           null,
           null
         ]
@@ -267,64 +267,6 @@
           null
         ]
       },
-      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/spec/models/customer_subscription_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          2,
-          2,
-          null,
-          null,
-          1,
-          2,
-          2,
-          2,
-          null,
-          null,
-          1,
-          2,
-          null,
-          null
-        ]
-      },
-      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/app/models/customer_subscription.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          null,
-          1,
-          null
-        ]
-      },
-      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/spec/models/subscription_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          2,
-          2,
-          null,
-          null,
-          1,
-          2,
-          2,
-          2,
-          null,
-          null,
-          1,
-          2,
-          null,
-          null
-        ]
-      },
       "/Users/zachbergman/Documents/turing_work/4mod/the_tea/app/models/subscription.rb": {
         "lines": [
           1,
@@ -338,32 +280,8 @@
           1,
           null
         ]
-      },
-      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/spec/models/tea_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          2,
-          2,
-          2,
-          2,
-          null,
-          null
-        ]
-      },
-      "/Users/zachbergman/Documents/turing_work/4mod/the_tea/app/models/tea.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          null
-        ]
       }
     },
-    "timestamp": 1723309723
+    "timestamp": 1723824718
   }
 }
