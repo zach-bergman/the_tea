@@ -13,6 +13,6 @@ RSpec.describe CustomerSubscription, type: :model do
   end
 
   describe 'enums' do
-    it { should define_enum_for(:status).with_values([:canceled, :active]) }
+    it { should define_enum_for(:status).with_values([:cancelled, :active]) }
   end
 end
