@@ -4,7 +4,7 @@ Certainly! Here’s a cleaner version of your README with dropdown arrows for th
 
 # The Tea
 
-Welcome to **The Tea**, a Rails application developed as part of the Turing School's Mod 4 Take-Home Challenge. This project is designed to showcase a range of skills, including API consumption, custom endpoints, and testing, while demonstrating your ability to build a RESTful API with clean, maintainable code.
+Welcome to **The Tea**, a Rails application developed as part of the Turing School's Mod 4 Take-Home Challenge. This project is designed to showcase a range of skills, including API exposure, custom endpoints, and testing, while demonstrating the ability to build a RESTful API with clean, maintainable code.
 
 ## Table of Contents
 
