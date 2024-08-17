@@ -184,7 +184,7 @@ Content-Type: application/json
 - **Endpoint**: `/api/v1/customer_subscriptions/:customer_id?status=active`
 - **Method**: `GET`
 - **Parameters**:
-  - `customer_id` (required): The user's email address.
+  - `customer_id` (required)
   - `status=`: `active` or `cancelled`.
 
 #### Example Request
