@@ -1,7 +1,3 @@
-Certainly! Here’s a cleaner version of your README with dropdown arrows for the endpoints:
-
----
-
 # The Tea
 
 Welcome to **The Tea**, a Rails application developed as part of the Turing School's Mod 4 Take-Home Challenge. This project is designed to showcase a range of skills, including API exposure, custom endpoints, and testing, while demonstrating the ability to build a RESTful API with clean, maintainable code.
@@ -18,7 +14,6 @@ Welcome to **The Tea**, a Rails application developed as part of the Turing Scho
 
 ## Features
 
-- **API Consumption**: Integrates with an external tea API to provide information on various tea types.
 - **Custom Endpoints**: Implements custom API endpoints for managing tea subscriptions.
 - **RESTful API Design**: Follows best practices for RESTful API design, ensuring intuitive and standardized routes.
 - **Robust Testing**: Comprehensive test coverage using RSpec, focusing on unit, feature, and request specs.
